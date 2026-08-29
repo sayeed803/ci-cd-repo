@@ -8,4 +8,4 @@ COPY target/*.jar app.jar
 EXPOSE 8081
 #Port declaration — tells Docker that the application is expected to use port 8081.
 ENTRYPOINT ["java","-jar","app.jar"]
-#Port declaration — tells Docker that the application is expected to use port 8081.
+# Starts the Spring Boot application
