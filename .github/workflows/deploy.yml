@@ -39,3 +39,18 @@ jobs:
 
       - name: Push Docker Image
         run: docker push ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:latest
+
+#CD
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1.2.2
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+
+          script: |
+            docker pull ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:latest
+            docker stop spring-boot-app || true
+            docker rm spring-boot-app || true
+            docker run -d -p 8081:8081 --name spring-boot-app ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:latest

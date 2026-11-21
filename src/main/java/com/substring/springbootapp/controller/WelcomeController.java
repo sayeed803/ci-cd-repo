@@ -11,6 +11,6 @@ public class WelcomeController {
 
     @GetMapping
     public ResponseEntity<String> welcome(){
-        return ResponseEntity.ok("welcome to ci cd");
+        return ResponseEntity.ok("welcome to ci cd workflow");
     }
 }
